@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- ============================================================
+     سَكِينَة | Sakina — الموقع الرسمي لتطبيق سَكِينَة
+     ملف واحد: HTML + CSS + JavaScript (Vanilla) — بدون أي Framework
+     منظم إلى أقسام (Sections) مع تعليقات لتسهيل التعديل مستقبلًا
+     ============================================================ -->
+
+<title id="page-title">سَكِينَة | تطبيق القرآن الكريم ومواقيت الصلاة والأذان</title>
+<meta id="meta-description" name="description" content="سَكِينَة تطبيق يجمع قراءة القرآن الكريم والتلاوة وأصوات الشيوخ وتحميل السور ومواقيت الصلاة والأذان في تجربة واحدة.">
+<meta id="meta-keywords" name="keywords" content="سكينة, تطبيق قرآن, مواقيت الصلاة, تلاوات, أذان, أذكار, Sakina, Quran app">
+<meta name="theme-color" content="#1f4a48">
+<meta name="robots" content="index, follow">
+<link id="canonical-link" rel="canonical" href="https://sakina-quran.netlify.app/">
+
+<!-- Open Graph -->
+<meta id="og-title" property="og:title" content="سَكِينَة">
+<meta id="og-description" property="og:description" content="سَكِينَة تطبيق يجمع قراءة القرآن الكريم والتلاوة وأصوات الشيوخ وتحميل السور ومواقيت الصلاة والأذان في تجربة واحدة.">
+<meta property="og:type" content="website">
+<meta id="og-image" property="og:image" content="https://sakina-quran.netlify.app/images/icon.png">
+<meta id="og-url" property="og:url" content="https://sakina-quran.netlify.app/">
+<meta property="og:locale" content="ar_AR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta id="twitter-title" name="twitter:title" content="سَكِينَة">
+<meta id="twitter-description" name="twitter:description" content="سَكِينَة تطبيق يجمع قراءة القرآن الكريم والتلاوة وأصوات الشيوخ وتحميل السور ومواقيت الصلاة والأذان في تجربة واحدة.">
+<meta id="twitter-image" name="twitter:image" content="https://sakina-quran.netlify.app/images/icon.png">
+
+<!-- Favicon: أيقونة التطبيق الحقيقية (ضع ملف icon.png بجانب index.html) -->
+<link rel="icon" type="image/png" href="images/icon.png">
+
+<!-- خطوط: Amiri لخط العناوين ذو الطابع القرآني، وCairo لنص الواجهة -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- JSON-LD: بيانات منظّمة لتطبيق سَكِينَة (MobileApplication) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "سَكِينَة",
+  "alternateName": "Sakina",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Android",
+  "description": "سَكِينَة تطبيق يجمع قراءة القرآن الكريم والتلاوة وأصوات الشيوخ وتحميل السور ومواقيت الصلاة والأذان في تجربة واحدة.",
+  "url": "https://sakina-quran.netlify.app/",
+  "author": {
+    "@type": "Person",
+    "name": "يوسف علاء حماده هاشم"
+  }
+}
+</script>
+
+<style>
+/* ============================================================
+   1) DESIGN TOKENS — CSS Variables
+   ============================================================ */
+:root{
+  /* ألوان مستخرجة من الهوية البصرية لتطبيق سَكِينَة */
+  --teal-950:#0e201d;
+  --teal-900:#132b27;
+  --teal-800:#1a3835;
+  --teal-700:#1f4a48;
+  --teal-600:#2c5c58;
+  --teal-500:#3e7472;
+  --teal-400:#5a908d;
+  --gold-700:#8a6a1f;
+  --gold-600:#ab7f28;
+  --gold-500:#c9a227;
+  --gold-400:#d9b94e;
+  --cream-100:#faf7ef;
+  --cream-200:#f3efe2;
+  --cream-300:#e9e4d3;
+
+  --radius-sm:10px;
+  --radius-md:16px;
+  --radius-lg:26px;
+  --radius-pill:999px;
+
+  --shadow-sm:0 2px 10px rgba(20,40,38,.08);
+  --shadow-md:0 10px 30px rgba(20,40,38,.14);
+  --shadow-gold:0 8px 24px rgba(171,127,40,.28);
+
+  --font-display:'Amiri','Georgia',serif;
+  --font-body:'Cairo','Segoe UI',Tahoen,Arial,sans-serif;
+
+  --container:1180px;
+  --nav-h:76px;
+
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+
+/* الوضع الفاتح (افتراضي) */
+:root,
+[data-theme="light"]{
+  --bg:var(--cream-200);
+  --bg-soft:var(--cream-100);
+  --surface:#ffffff;
+  --surface-2:var(--cream-300);
+  --text:#1d2b28;
+  --text-soft:#4d5c58;
+  --text-invert:#f6f3e8;
+  --border:rgba(31,74,72,.14);
+  --nav-bg:rgba(250,247,239,.86);
+  --hero-grad:linear-gradient(180deg,var(--teal-700) 0%,var(--teal-600) 45%,var(--cream-200) 100%);
+  --card-dark-bg:var(--teal-700);
+}
+
+/* الوضع الداكن */
+[data-theme="dark"]{
+  --bg:var(--teal-950);
+  --bg-soft:var(--teal-900);
+  --surface:var(--teal-900);
+  --surface-2:var(--teal-800);
+  --text:var(--cream-100);
+  --text-soft:#b7c7c3;
+  --text-invert:#101c1a;
+  --border:rgba(217,185,78,.16);
+  --nav-bg:rgba(14,32,29,.86);
+  --hero-grad:linear-gradient(180deg,#0e201d 0%,#132b27 55%,var(--teal-950) 100%);
+  --card-dark-bg:var(--teal-800);
+}
+
+/* ============================================================
+   2) RESET & BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  transition:background-color .35s var(--ease),color .35s var(--ease);
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
+ul{list-style:none;margin:0;padding:0;}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;line-height:1.35;}
+p{margin:0;}
+:focus-visible{outline:3px solid var(--gold-500);outline-offset:3px;border-radius:6px;}
+
+.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:24px;}
+.section{padding-block:96px;}
+.section-tight{padding-block:64px;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.8rem;font-weight:700;letter-spacing:.04em;
+  color:var(--gold-600);
+  margin-bottom:14px;
+}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold-500);}
+.section-head{max-width:640px;margin-inline:auto;text-align:center;margin-bottom:52px;}
+.section-title{font-size:clamp(1.7rem,3.2vw,2.5rem);color:var(--text);}
+.section-desc{margin-top:14px;color:var(--text-soft);font-size:1.02rem;}
+
+/* ============================================================
+   3) NAVBAR
+   ============================================================ */
+.navbar{
+  position:fixed;inset-inline:0;top:0;z-index:1000;
+  height:var(--nav-h);
+  display:flex;align-items:center;
+  background:var(--nav-bg);
+  backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid var(--border);
+  transition:background-color .35s var(--ease),border-color .35s var(--ease);
+}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.35rem;color:var(--text);}
+.brand-badge{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(155deg,var(--gold-400),var(--gold-600));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-gold);
+  flex:none;overflow:hidden;
+}
+.brand-badge svg{width:20px;height:20px;}
+.brand-icon-img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.brand-icon-fallback{width:20px;height:20px;color:var(--teal-700);}
+
+.nav-links{display:flex;align-items:center;gap:6px;}
+.nav-links a{
+  padding:10px 14px;border-radius:var(--radius-pill);
+  font-size:.95rem;font-weight:600;color:var(--text-soft);
+  transition:background-color .25s var(--ease),color .25s var(--ease);
+  white-space:nowrap;
+}
+.nav-links a:hover{background:var(--surface-2);color:var(--text);}
+
+.nav-tools{display:flex;align-items:center;gap:10px;}
+.icon-btn{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface-2);color:var(--text);
+  transition:transform .25s var(--ease),background-color .25s var(--ease);
+}
+.icon-btn:hover{transform:translateY(-2px);}
+.icon-btn svg{width:19px;height:19px;}
+.lang-switch{
+  display:flex;align-items:center;gap:4px;
+  background:var(--surface-2);border-radius:var(--radius-pill);padding:4px;
+  font-size:.85rem;font-weight:700;
+}
+.lang-switch button{
+  padding:8px 12px;border-radius:var(--radius-pill);color:var(--text-soft);
+  transition:background-color .25s var(--ease),color .25s var(--ease);
+}
+.lang-switch button.active{background:var(--teal-600);color:#fff;}
+[data-theme="dark"] .lang-switch button.active{background:var(--gold-500);color:var(--text-invert);}
+
+.nav-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(155deg,var(--gold-500),var(--gold-600));
+  color:#231a06;font-weight:700;font-size:.9rem;
+  padding:11px 20px;border-radius:var(--radius-pill);
+  box-shadow:var(--shadow-gold);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease);
+  white-space:nowrap;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(171,127,40,.36);}
+
+.menu-toggle{display:none;}
+
+@media (max-width:960px){
+  .nav-links{
+    position:fixed;top:var(--nav-h);inset-inline:0;
+    background:var(--surface);
+    flex-direction:column;align-items:stretch;
+    padding:14px;gap:4px;
+    border-bottom:1px solid var(--border);
+    transform:translateY(-12px);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .25s var(--ease),transform .25s var(--ease),visibility .25s;
+  }
+  .nav-links a{padding:14px 16px;border-radius:var(--radius-sm);}
+  .nav-links.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);}
+  .nav-cta{display:none;}
+  .menu-toggle{
+    display:flex;width:42px;height:42px;border-radius:50%;
+    background:var(--surface-2);align-items:center;justify-content:center;
+  }
+  .menu-toggle svg{width:20px;height:20px;}
+}
+
+/* ============================================================
+   4) HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  padding-top:calc(var(--nav-h) + 64px);
+  padding-bottom:90px;
+  background:var(--hero-grad);
+  overflow:hidden;
+}
+.hero .container{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
+}
+.hero-title{
+  font-size:clamp(2.4rem,5.2vw,3.6rem);
+  color:#fff;
+}
+.hero-subtitle{
+  margin-top:14px;font-size:clamp(1.05rem,2vw,1.3rem);
+  color:var(--gold-400);font-weight:600;font-family:var(--font-display);
+}
+.hero-desc{
+  margin-top:18px;color:rgba(250,247,239,.86);font-size:1.05rem;max-width:52ch;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 26px;border-radius:var(--radius-pill);
+  font-weight:700;font-size:.98rem;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background-color .25s var(--ease);
+}
+.btn svg{width:18px;height:18px;flex:none;}
+.btn:hover{transform:translateY(-3px);}
+.btn-gold{background:linear-gradient(155deg,var(--gold-400),var(--gold-600));color:#231a06;box-shadow:var(--shadow-gold);}
+.btn-gold:hover{box-shadow:0 14px 32px rgba(171,127,40,.4);}
+.btn-outline{border:1.5px solid rgba(250,247,239,.5);color:#fff;}
+.btn-outline:hover{background:rgba(250,247,239,.1);}
+.btn-block{width:100%;justify-content:center;}
+.btn-disabled{opacity:.55;cursor:not-allowed;}
+.btn-disabled:hover{transform:none;box-shadow:none;}
+
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:var(--radius-pill);
+  background:rgba(250,247,239,.12);
+  color:var(--text-invert,#fff);
+  font-size:.8rem;font-weight:600;
+  border:1px solid rgba(250,247,239,.18);
+}
+[data-theme="light"] .hero-chip{color:#fff;}
+
+.hero-visual{position:relative;display:flex;justify-content:center;}
+.phone-frame{
+  position:relative;width:min(280px,72vw);
+  aspect-ratio:540/1170;
+  border-radius:38px;overflow:hidden;
+  box-shadow:0 30px 60px rgba(0,0,0,.35),0 0 0 8px rgba(0,0,0,.25);
+  transform:rotate(-2deg);
+  transition:transform .5s var(--ease);
+}
+.phone-frame:hover{transform:rotate(0deg) translateY(-6px);}
+.phone-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.hero-glow{
+  position:absolute;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(217,185,78,.35),transparent 70%);
+  filter:blur(10px);z-index:0;
+}
+
+@media (max-width:960px){
+  .hero .container{grid-template-columns:1fr;text-align:center;}
+  .hero-desc{margin-inline:auto;}
+  .hero-actions,.hero-meta{justify-content:center;}
+  .hero-visual{margin-top:20px;}
+}
+
+/* ============================================================
+   5) FEATURES
+   ============================================================ */
+.features-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:22px;
+}
+@media (max-width:1080px){.features-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.features-grid{grid-template-columns:1fr;}}
+
+.feature-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  padding:28px 24px;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
+}
+.feature-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:transparent;}
+.feature-title{font-size:1.12rem;color:var(--text);margin-bottom:8px;}
+.feature-desc{color:var(--text-soft);font-size:.92rem;}
+
+/* ============================================================
+   6) SCREENSHOTS / GALLERY
+   ============================================================ */
+/* معرض بأسلوب متجر التطبيقات (Play Store): تمرير أفقي + أسهم يمين/يسار */
+.gallery-wrap{position:relative;}
+.gallery-grid{
+  display:flex;gap:16px;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-block:4px;padding-inline:4px;
+  scrollbar-width:none;
+}
+.gallery-grid::-webkit-scrollbar{display:none;}
+.gallery-item{
+  position:relative;flex:0 0 auto;
+  width:min(210px,44vw);
+  border-radius:var(--radius-md);overflow:hidden;
+  aspect-ratio:540/1170;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  cursor:pointer;
+  scroll-snap-align:start;
+}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease);}
+.gallery-item:hover img{transform:scale(1.05);}
+.gallery-arrow{
+  position:absolute;top:50%;translate:0 -50%;z-index:2;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--surface);border:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  display:flex;align-items:center;justify-content:center;color:var(--text);
+  transition:transform .2s var(--ease),background-color .2s var(--ease);
+}
+.gallery-arrow:hover{transform:translateY(-50%) scale(1.06);background:var(--surface-2);}
+.gallery-prev{inset-inline-start:-6px;}
+.gallery-next{inset-inline-end:-6px;}
+[dir="rtl"] .flip-rtl{transform:scaleX(-1);}
+@media (max-width:720px){
+  .gallery-prev{inset-inline-start:2px;}
+  .gallery-next{inset-inline-end:2px;}
+  .gallery-arrow{width:38px;height:38px;}
+}
+.gallery-caption{
+  position:absolute;inset-inline:0;bottom:0;
+  padding:10px 12px;
+  font-size:.78rem;font-weight:600;color:#fff;
+  background:linear-gradient(0deg,rgba(14,32,29,.85),transparent);
+}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(10,20,18,.92);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s;
+  padding:24px;
+}
+.lightbox.open{opacity:1;visibility:visible;}
+.lightbox-figure{position:relative;max-width:420px;width:100%;text-align:center;}
+.lightbox-figure img{
+  width:100%;max-height:78vh;object-fit:contain;
+  border-radius:var(--radius-md);
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+.lightbox-caption{margin-top:14px;color:#f3efe2;font-weight:600;}
+.lightbox-close{
+  position:absolute;top:-8px;inset-inline-end:-8px;
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(250,247,239,.14);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  translate:50% -50%;
+}
+.lightbox-nav{
+  position:absolute;top:50%;translate:0 -50%;
+  width:46px;height:46px;border-radius:50%;
+  background:rgba(250,247,239,.14);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.lightbox-prev{inset-inline-start:-56px;}
+.lightbox-next{inset-inline-end:-56px;}
+@media (max-width:640px){
+  .lightbox-prev{inset-inline-start:6px;}
+  .lightbox-next{inset-inline-end:6px;}
+}
+
+/* ============================================================
+   7) PERMISSIONS
+   ============================================================ */
+.permissions-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media (max-width:800px){.permissions-list{grid-template-columns:1fr;}}
+.permission-card{
+  display:flex;gap:16px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-md);padding:22px;
+}
+.permission-icon{
+  flex:none;width:46px;height:46px;border-radius:50%;
+  background:var(--surface-2);display:flex;align-items:center;justify-content:center;
+  color:var(--gold-600);
+}
+.permission-icon svg{width:22px;height:22px;}
+.permission-name{font-size:1.05rem;font-weight:700;color:var(--text);}
+.permission-code{
+  display:inline-block;margin-top:4px;margin-bottom:8px;
+  font-family:ui-monospace,Consolas,monospace;font-size:.78rem;
+  color:var(--teal-500);background:var(--surface-2);
+  padding:2px 8px;border-radius:6px;
+}
+[data-theme="dark"] .permission-code{color:var(--gold-400);}
+.permission-why{font-size:.85rem;color:var(--text-soft);font-weight:600;margin-inline-end:4px;}
+.permission-desc{font-size:.9rem;color:var(--text-soft);}
+.permission-feature{
+  display:inline-block;margin-top:10px;font-size:.75rem;font-weight:700;
+  color:var(--teal-600);background:rgba(62,116,114,.12);
+  padding:4px 10px;border-radius:var(--radius-pill);
+}
+[data-theme="dark"] .permission-feature{color:var(--gold-400);background:rgba(217,185,78,.12);}
+.permissions-note{
+  margin-top:24px;padding:16px 20px;border-radius:var(--radius-sm);
+  background:var(--surface-2);color:var(--text-soft);font-size:.85rem;
+  border-inline-start:3px solid var(--gold-500);
+}
+
+/* ============================================================
+   8) DOWNLOAD
+   ============================================================ */
+.download-section{
+  background:var(--card-dark-bg);
+  border-radius:var(--radius-lg);
+  margin-inline:auto;max-width:var(--container);
+  padding:64px clamp(20px,5vw,64px);
+  color:#f3efe2;
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+.download-section::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(217,185,78,.16),transparent 55%);
+  pointer-events:none;
+}
+.download-grid{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
+.download-title{color:#fff;font-size:clamp(1.5rem,3vw,2.1rem);}
+.download-desc{margin-top:12px;color:rgba(243,239,226,.82);max-width:52ch;margin-inline:auto;}
+.download-facts{
+  margin-top:26px;display:flex;justify-content:center;flex-wrap:wrap;gap:12px;
+  max-width:440px;margin-inline:auto;
+}
+.fact{
+  background:rgba(250,247,239,.08);border:1px solid rgba(250,247,239,.14);
+  border-radius:var(--radius-sm);padding:12px 22px;min-width:140px;
+}
+.fact-label{display:block;font-size:.72rem;color:rgba(243,239,226,.65);margin-bottom:4px;}
+.fact-value{font-weight:700;color:#fff;font-size:.95rem;}
+.download-actions{margin-top:30px;}
+.download-hint{margin-top:12px;font-size:.8rem;color:rgba(243,239,226,.65);}
+.btn-lg{padding:19px 40px;font-size:1.08rem;}
+
+/* ============================================================
+   9) INSTALL STEPS
+   ============================================================ */
+.steps-list{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;counter-reset:step;}
+@media (max-width:960px){.steps-list{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.steps-list{grid-template-columns:1fr;}}
+.step-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-md);padding:24px 20px;position:relative;
+}
+.step-num{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(155deg,var(--gold-400),var(--gold-600));
+  color:#231a06;font-weight:700;font-family:var(--font-display);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:14px;
+}
+.step-title{font-size:1rem;color:var(--text);margin-bottom:6px;}
+.step-desc{font-size:.86rem;color:var(--text-soft);}
+.install-note{
+  margin-top:24px;padding:16px 20px;border-radius:var(--radius-sm);
+  background:var(--surface-2);color:var(--text-soft);font-size:.85rem;
+  border-inline-start:3px solid var(--teal-500);
+}
+
+/* ============================================================
+   10) DEVELOPER
+   ============================================================ */
+.developer-card{
+  display:flex;align-items:center;gap:26px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:40px clamp(20px,5vw,48px);
+  max-width:760px;margin-inline:auto;
+}
+@media (max-width:640px){.developer-card{flex-direction:column;text-align:center;}}
+.developer-avatar{
+  flex:none;width:88px;height:88px;border-radius:50%;
+  background:linear-gradient(155deg,var(--teal-500),var(--teal-700));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:1.8rem;color:#fff;font-weight:700;
+  box-shadow:0 10px 26px rgba(31,74,72,.3);
+}
+.developer-name{font-size:1.3rem;color:var(--text);}
+.developer-role{color:var(--gold-600);font-weight:700;font-size:.88rem;margin-top:4px;}
+.developer-actions{margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;}
+@media (max-width:640px){.developer-actions{justify-content:center;}}
+.btn-outline-dev{border:1.5px solid var(--border);color:var(--text);background:var(--surface-2);}
+.btn-outline-dev:hover{background:var(--surface);}
+
+/* ============================================================
+   11) PRIVACY
+   ============================================================ */
+.privacy-card{
+  max-width:760px;margin-inline:auto;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:36px clamp(20px,5vw,44px);
+  color:var(--text-soft);font-size:.96rem;
+}
+.privacy-card p+p{margin-top:14px;}
+
+/* ============================================================
+   12) FOOTER
+   ============================================================ */
+.site-footer{
+  background:var(--teal-950);color:rgba(243,239,226,.78);
+  padding:56px 0 26px;
+}
+.footer-top{
+  display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;
+  padding-bottom:32px;border-bottom:1px solid rgba(243,239,226,.12);
+}
+.footer-brand{max-width:340px;}
+.footer-brand .brand{color:#fff;}
+.footer-tagline{margin-top:12px;font-size:.9rem;color:rgba(243,239,226,.62);}
+.footer-links{display:flex;flex-wrap:wrap;gap:10px 28px;}
+.footer-links a{font-size:.9rem;color:rgba(243,239,226,.72);transition:color .2s;}
+.footer-links a:hover{color:var(--gold-400);}
+.footer-bottom{padding-top:22px;text-align:center;font-size:.82rem;color:rgba(243,239,226,.5);}
+
+/* ============================================================
+   13) ANIMATIONS
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none;}
+}
+
+/* Skip link */
+.skip-link{
+  position:fixed;top:-60px;inset-inline-start:12px;z-index:3000;
+  background:var(--gold-500);color:#231a06;font-weight:700;
+  padding:10px 16px;border-radius:var(--radius-sm);
+  transition:top .2s var(--ease);
+}
+.skip-link:focus{top:12px;}
+
+/* Utility */
+.text-center{text-align:center;}
+.mt-24{margin-top:24px;}
+/* ===== v2 additions ===== */
+.new-badge{display:inline-block;margin-inline-start:8px;padding:2px 10px;border-radius:999px;font-size:.7rem;font-weight:700;background:linear-gradient(155deg,var(--gold-400),var(--gold-600));color:#231a06;vertical-align:middle;}
+.old-version{margin-top:38px;padding-top:30px;border-top:1px solid rgba(243,239,226,.2);}
+.old-title{color:#f3efe2;font-size:1.2rem;margin-bottom:8px;}
+.old-desc{color:rgba(243,239,226,.78);font-size:.92rem;margin-bottom:18px;}
+.old-version .download-facts{margin-bottom:20px;}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip_link">تخطَّ إلى المحتوى</a>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<header class="navbar">
+  <div class="container">
+    <a href="#top" class="brand">
+      <span class="brand-badge" aria-hidden="true">
+        <img class="brand-icon-img" src="images/icon.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <svg class="brand-icon-fallback" style="display:none" viewBox="0 0 24 24" fill="none"><path d="M12 2 9 6H6v3l-2 2v9h4v-5a4 4 0 0 1 8 0v5h4v-9l-2-2V6h-3l-3-4Z" fill="currentColor"/></svg>
+      </span>
+      <span>سَكِينَة</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#top" data-i18n="nav_home">الرئيسية</a>
+      <a href="#features" data-i18n="nav_features">المميزات</a>
+      <a href="#screenshots" data-i18n="nav_screenshots">صور التطبيق</a>
+      <a href="#permissions" data-i18n="nav_permissions">الأذونات</a>
+      <a href="#install" data-i18n="nav_install">طريقة التثبيت</a>
+      <a href="#download" data-i18n="nav_download">تحميل</a>
+    </nav>
+
+    <div class="nav-tools">
+      <div class="lang-switch" role="group" aria-label="اختيار اللغة">
+        <button type="button" id="langAr" class="active" onclick="setLang('ar')">العربية</button>
+        <button type="button" id="langEn" onclick="setLang('en')">English</button>
+      </div>
+      <button type="button" class="icon-btn" id="themeToggle" aria-label="تبديل الوضع الليلي" onclick="toggleTheme()">
+        <svg id="themeIconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg id="themeIconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a href="#download" class="nav-cta" data-i18n="nav_cta">تحميل APK</a>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="القائمة" aria-expanded="false" aria-controls="navLinks" onclick="toggleMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-copy">
+      <h1 class="hero-title">سَكِينَة</h1>
+      <p class="hero-subtitle" data-i18n="hero_subtitle">رفيقك اليومي للقرآن والصلاة والتلاوة</p>
+      <p class="hero-desc" data-i18n="hero_desc">استمتع بتجربة متكاملة تجمع قراءة القرآن الكريم، التلاوات، مواقيت الصلاة، الأذان، وتحميل السور في تطبيق واحد.</p>
+      <div class="hero-actions">
+        <a href="#download" class="btn btn-gold" data-i18n="hero_btn_download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>
+          <span data-i18n-text="hero_btn_download">تحميل APK</span>
+        </a>
+        <a href="#features" class="btn btn-outline">
+          <span data-i18n-text="hero_btn_features">اكتشف المميزات</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="phone-frame">
+        <img id="heroShot" src="Light mode/1.jpg" onerror="shotFallback(this,1)" alt="الشاشة الرئيسية لتطبيق سَكِينَة" width="540" height="1170" loading="eager" data-i18n-alt="alt_hero_screenshot">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURES
+     ============================================================ -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="features_eyebrow">داخل التطبيق</div>
+      <h2 class="section-title" data-i18n="features_title">مميزات سَكِينَة</h2>
+      <p class="section-desc" data-i18n="features_desc">كل ما تحتاجه في رفيقك اليومي للقرآن والصلاة، في مكان واحد.</p>
+    </div>
+    <div class="features-grid" id="featuresGrid">
+      <div class="feature-card"><h3 class="feature-title">قراءة القرآن</h3><p class="feature-desc">قراءة القرآن الكريم بواجهة مريحة وواضحة.</p></div>
+      <div class="feature-card"><h3 class="feature-title">التلاوة</h3><p class="feature-desc">الاستماع إلى تلاوات القرآن الكريم.</p></div>
+      <div class="feature-card"><h3 class="feature-title">أصوات الشيوخ</h3><p class="feature-desc">اختيار التلاوة والاستماع إلى أصوات الشيوخ المتوفرة في التطبيق.</p></div>
+      <div class="feature-card"><h3 class="feature-title">تحميل السور</h3><p class="feature-desc">تحميل السور للاستماع إليها لاحقًا.</p></div>
+      <div class="feature-card"><h3 class="feature-title">مواقيت الصلاة</h3><p class="feature-desc">معرفة مواقيت الصلاة اليومية.</p></div>
+      <div class="feature-card"><h3 class="feature-title">الأذان</h3><p class="feature-desc">التنبيه بمواقيت الصلاة والأذان.</p></div>
+      <div class="feature-card"><h3 class="feature-title">البحث</h3><p class="feature-desc">البحث داخل القرآن بسهولة.</p></div>
+      <div class="feature-card"><h3 class="feature-title">الأذكار والأدعية</h3><p class="feature-desc">أذكار الصباح والمساء والنوم وبعد الصلاة من السنة النبوية.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCREENSHOTS
+     ============================================================ -->
+<section class="section" id="screenshots">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="screenshots_eyebrow">لمحة من الداخل</div>
+      <h2 class="section-title" data-i18n="screenshots_title">استكشف سَكِينَة</h2>
+      <p class="section-desc" data-i18n="screenshots_desc">صور حقيقية من التطبيق — اضغط على أي صورة لتكبيرها.</p>
+    </div>
+    <div class="gallery-wrap reveal">
+      <button type="button" class="gallery-arrow gallery-prev" onclick="scrollGallery(-1)" aria-label="السابق">
+        <svg class="flip-rtl" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="gallery-grid" id="galleryGrid">
+      </div>
+      <button type="button" class="gallery-arrow gallery-next" onclick="scrollGallery(1)" aria-label="التالي">
+        <svg class="flip-rtl" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PERMISSIONS
+     ============================================================ -->
+<section class="section" id="permissions">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="permissions_eyebrow">الشفافية أولًا</div>
+      <h2 class="section-title" data-i18n="permissions_title">أذونات التطبيق</h2>
+      <p class="section-desc" data-i18n="permissions_desc">نحرص على أن يكون استخدام كل إذن مرتبطًا بميزة واضحة داخل سَكِينَة.</p>
+    </div>
+    <div class="permissions-list" id="permissionsList">
+      <div class="permission-card">
+        <div class="permission-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+        <div>
+          <div class="permission-name">الموقع الجغرافي</div>
+          <span class="permission-code">ACCESS_FINE_LOCATION</span>
+          <p class="permission-desc"><span class="permission-why">السبب:</span> تُستخدم لتحديد مواقيت الصلاة بدقة حسب موقعك الجغرافي.</p>
+          <span class="permission-feature">مرتبط بميزة: مواقيت الصلاة</span>
+        </div>
+      </div>
+      <div class="permission-card">
+        <div class="permission-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9Z"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+        <div>
+          <div class="permission-name">الإشعارات</div>
+          <span class="permission-code">POST_NOTIFICATIONS</span>
+          <p class="permission-desc"><span class="permission-why">السبب:</span> إرسال التنبيهات المتعلقة بمواقيت الصلاة والأذان.</p>
+          <span class="permission-feature">مرتبط بميزة: الأذان</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DOWNLOAD
+     ============================================================ -->
+<section class="section-tight" id="download">
+  <div class="container">
+    <div class="download-section reveal">
+      <div class="download-grid">
+        <div class="eyebrow" data-i18n="download_eyebrow">جاهز؟</div>
+        <h2 class="download-title" data-i18n="download_title">حمّل سَكِينَة</h2>
+        <p class="download-desc" data-i18n="download_desc">احصل على أحدث إصدار من تطبيق سَكِينَة بصيغة APK.</p>
+
+        <div class="download-facts">
+          <div class="fact"><span class="fact-label" data-i18n="fact_version">الإصدار</span><span class="fact-value" id="factVersion">—</span></div>
+          <div class="fact"><span class="fact-label" data-i18n="fact_size">حجم APK</span><span class="fact-value" id="factSize">—</span></div>
+        </div>
+
+        <div class="download-actions">
+          <a href="#" id="downloadBtn" class="btn btn-gold btn-lg" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>
+            <span data-i18n-text="download_btn">تحميل APK</span>
+          </a>
+          <p class="download-hint" id="downloadHint"></p>
+        </div>
+        <div class="old-version">
+          <h3 class="old-title" data-i18n="old_title">تحميل الإصدار القديم</h3>
+          <p class="old-desc" data-i18n="old_desc">هل تفضّل الإصدار السابق؟ ما زال متاحًا للتحميل.</p>
+          <div class="download-facts">
+            <div class="fact"><span class="fact-label" data-i18n="fact_version">الإصدار</span><span class="fact-value" id="oldVersion">—</span></div>
+            <div class="fact"><span class="fact-label" data-i18n="fact_size">حجم APK</span><span class="fact-value" id="oldSize">—</span></div>
+          </div>
+          <a href="https://yo918.github.io/sakina-v1/" id="oldDownloadBtn" class="btn btn-outline" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>
+            <span data-i18n-text="old_btn">تحميل الإصدار القديم</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INSTALL STEPS
+     ============================================================ -->
+<section class="section" id="install">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="install_eyebrow">خطوة بخطوة</div>
+      <h2 class="section-title" data-i18n="install_title">طريقة تثبيت سَكِينَة</h2>
+    </div>
+    <div class="steps-list" id="stepsList">
+      <div class="step-card"><div class="step-num">1</div><h3 class="step-title">تحميل التطبيق</h3><p class="step-desc">اضغط على زر تحميل APK.</p></div>
+      <div class="step-card"><div class="step-num">2</div><h3 class="step-title">فتح الملف</h3><p class="step-desc">بعد انتهاء التحميل، افتح ملف APK.</p></div>
+      <div class="step-card"><div class="step-num">3</div><h3 class="step-title">السماح بالتثبيت</h3><p class="step-desc">إذا طلب أندرويد السماح بالتثبيت من هذا المصدر، اتّبع تعليمات النظام.</p></div>
+      <div class="step-card"><div class="step-num">4</div><h3 class="step-title">تثبيت التطبيق</h3><p class="step-desc">اضغط على زر تثبيت.</p></div>
+      <div class="step-card"><div class="step-num">5</div><h3 class="step-title">فتح سَكِينَة</h3><p class="step-desc">بعد اكتمال التثبيت، افتح التطبيق واستمتع.</p></div>
+    </div>
+    <p class="install-note" data-i18n="install_note">قد يعرض نظام أندرويد تحذيرًا عند تثبيت تطبيق من خارج متجر Google Play — هذا أمر طبيعي عند تثبيت ملفات APK مباشرة، ويمكنك المتابعة بأمان بعد التأكد من مصدر الملف.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     DEVELOPER
+     ============================================================ -->
+<section class="section" id="developer">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title" data-i18n="developer_title">عن المطوّر</h2>
+    </div>
+    <div class="developer-card reveal">
+      <div class="developer-avatar" id="devAvatar" aria-hidden="true">ي</div>
+      <div>
+        <h3 class="developer-name" id="devName">يوسف علاء حماده هاشم</h3>
+        <p class="developer-role" data-i18n="developer_role">مطوّر تطبيقات · Developer / Programmer</p>
+        <div class="developer-actions">
+          <a href="tel:01126214380" class="btn btn-gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2Z"/></svg>
+            <span data-i18n-text="developer_contact">تواصل مع المطوّر</span>
+          </a>
+          <a href="https://www.linkedin.com/in/youssef-programming/" target="_blank" rel="noopener" class="btn btn-outline-dev">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5.001ZM3 9h4v12H3V9Zm7 0h3.8v1.64h.05c.53-.98 1.83-2.02 3.77-2.02 4.03 0 4.78 2.55 4.78 5.86V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.45-2.16 2.96V21h-4V9Z"/></svg>
+            <span data-i18n-text="developer_linkedin">حساب LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRIVACY
+     ============================================================ -->
+<section class="section" id="privacy">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title" data-i18n="privacy_title">الخصوصية</h2>
+    </div>
+    <div class="privacy-card reveal">
+      <p data-i18n="privacy_p1">يطلب تطبيق سَكِينَة عددًا من الأذونات لتشغيل ميزاته المختلفة، كما هو موضّح بالتفصيل في قسم «أذونات التطبيق» أعلاه. الهدف من كل إذن مرتبط دائمًا بميزة واضحة داخل التطبيق.</p>
+      <p data-i18n="privacy_p2">يمكنك في أي وقت مراجعة هذه الأذونات وتعديلها من إعدادات جهازك، مع العلم أن تعطيل إذن معيّن قد يؤثر على عمل الميزة المرتبطة به.</p>
+      <p data-i18n="privacy_p3">لأي استفسار بخصوص الخصوصية، يمكنك التواصل مباشرة مع المطوّر عبر بيانات التواصل الموضحة في قسم «عن المطوّر».</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <span class="brand-badge" aria-hidden="true">
+            <img class="brand-icon-img" src="images/icon.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <svg class="brand-icon-fallback" style="display:none" viewBox="0 0 24 24" fill="none"><path d="M12 2 9 6H6v3l-2 2v9h4v-5a4 4 0 0 1 8 0v5h4v-9l-2-2V6h-3l-3-4Z" fill="currentColor"/></svg>
+          </span>
+          <span>سَكِينَة</span>
+        </a>
+        <p class="footer-tagline" data-i18n="footer_tagline">رفيقك اليومي للقرآن والصلاة والتلاوة.</p>
+      </div>
+      <nav class="footer-links">
+        <a href="#top" data-i18n="nav_home">الرئيسية</a>
+        <a href="#features" data-i18n="nav_features">المميزات</a>
+        <a href="#screenshots" data-i18n="footer_screenshots">الصور</a>
+        <a href="#permissions" data-i18n="nav_permissions">الأذونات</a>
+        <a href="#install" data-i18n="footer_install">التثبيت</a>
+        <a href="#privacy" data-i18n="privacy_title">الخصوصية</a>
+        <a href="#download" data-i18n="nav_download">تحميل</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 <span id="footerDevName">يوسف علاء حماده هاشم</span></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     LIGHTBOX
+     ============================================================ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="عرض الصورة">
+  <div class="lightbox-figure">
+    <button type="button" class="lightbox-close" onclick="closeLightbox()" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <button type="button" class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)" aria-label="السابق">
+      <svg class="flip-rtl" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <img id="lightboxImg" src="" alt="">
+    <button type="button" class="lightbox-nav lightbox-next" onclick="navLightbox(1)" aria-label="التالي">
+      <svg class="flip-rtl" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   14) CONFIG — عدّل بياناتك من هنا فقط
+   ============================================================ */
+const appConfig = {
+  appName: "سَكِينَة",
+  englishName: "Sakina",
+  version: "2.0.0",
+  apkSize: "17 MB",
+  apkUrl: "سَكِينَة.apk", // ملف الـ APK الجديد بنفس هذا الاسم بجانب index.html مباشرة (نفس المجلد)
+  oldVersion: "1.0.0",
+  oldApkSize: "17 MB",
+  oldSiteUrl: "https://yo918.github.io/sakina-v1/", // يفتح موقع الإصدار القديم
+  developerName: "يوسف علاء حماده هاشم",
+  phone: "01126214380"
+};
+
+/* صور التطبيق — عدّل/أضف عناصر بسهولة من هنا.
+   ضع الصور داخل مجلد images بجانب index.html بنفس هذه الأسماء بالضبط (jpg): */
+const shotKeys = ["home","index","reading","tools","full","search","goto","azkar","prayer","reciters","adhan","settings","readmode","location","adhanset","azkarrem"];
+const screenshots = shotKeys.map((k,i)=>({ n:i+1, captionKey:"shot2_"+k }));
+function shotPath(mode,n){ return encodeURI((mode==="dark" ? "Dark mode" : "Light mode") + "/" + n + ".jpg"); }
+function shotSrc(n){ return shotPath(document.documentElement.getAttribute("data-theme")==="dark" ? "dark" : "light", n); }
+function shotFallback(img,n){ img.onerror = null; img.src = shotPath("dark", n); }
+
+/* مميزات التطبيق — مطابقة لما هو موجود فعليًا داخل سَكِينَة (أيقونات SVG بسيطة بدل الإيموجي) */
+const features = [
+  { titleKey:"feat_reading_title",    descKey:"feat_reading_desc" },
+  { titleKey:"feat_recitation_title", descKey:"feat_recitation_desc" },
+  { titleKey:"feat_reciters_title",   descKey:"feat_reciters_desc" },
+  { titleKey:"feat_download_title",   descKey:"feat_download_desc" },
+  { titleKey:"feat_times_title",      descKey:"feat_times_desc" },
+  { titleKey:"feat_adhan_title",      descKey:"feat_adhan_desc" },
+  { titleKey:"feat_search_title",     descKey:"feat_search_desc" },
+  { titleKey:"feat_azkar_title",      descKey:"feat_azkar_desc" },
+  { titleKey:"nw_mode_title", descKey:"nw_mode_desc", isNew:true },
+  { titleKey:"nw_font_title", descKey:"nw_font_desc", isNew:true },
+  { titleKey:"nw_vol_title", descKey:"nw_vol_desc", isNew:true },
+  { titleKey:"nw_rem_title", descKey:"nw_rem_desc", isNew:true },
+  { titleKey:"nw_count_title", descKey:"nw_count_desc", isNew:true },
+  { titleKey:"nw_gov_title", descKey:"nw_gov_desc", isNew:true },
+  { titleKey:"nw_readers_title", descKey:"nw_readers_desc", isNew:true },
+  { titleKey:"nw_stop_title", descKey:"nw_stop_desc", isNew:true }
+];
+
+
+/* الأذونات — القائمة النهائية يجب أن تُطابق AndroidManifest.xml الفعلي للتطبيق */
+const permissions = [
+  {
+    android: "ACCESS_FINE_LOCATION",
+    nameKey:"perm_location_name",
+    descKey:"perm_location_desc",
+    featureKey:"feat_times_title",
+    required:true,
+    icon:'<path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>'
+  },
+  {
+    android: "POST_NOTIFICATIONS",
+    nameKey:"perm_notif_name",
+    descKey:"perm_notif_desc",
+    featureKey:"feat_adhan_title",
+    required:true,
+    icon:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9Z"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>'
+  }
+];
+
+/* خطوات التثبيت */
+const installSteps = [
+  { titleKey:"step1_title", descKey:"step1_desc" },
+  { titleKey:"step2_title", descKey:"step2_desc" },
+  { titleKey:"step3_title", descKey:"step3_desc" },
+  { titleKey:"step4_title", descKey:"step4_desc" },
+  { titleKey:"step5_title", descKey:"step5_desc" }
+];
+
+/* ============================================================
+   15) TRANSLATIONS
+   ============================================================ */
+const translations = {
+  ar: {
+    skip_link:"تخطَّ إلى المحتوى",
+    nav_home:"الرئيسية", nav_features:"المميزات", nav_screenshots:"صور التطبيق",
+    nav_permissions:"الأذونات", nav_install:"طريقة التثبيت", nav_download:"تحميل",
+    nav_cta:"تحميل APK",
+    hero_subtitle:"رفيقك اليومي للقرآن والصلاة والتلاوة",
+    hero_desc:"استمتع بتجربة متكاملة تجمع قراءة القرآن الكريم، التلاوات، مواقيت الصلاة، الأذان، وتحميل السور في تطبيق واحد.",
+    hero_btn_download:"تحميل APK",
+    hero_btn_features:"اكتشف المميزات",
+    alt_hero_screenshot:"الشاشة الرئيسية لتطبيق سَكِينَة",
+
+    features_eyebrow:"داخل التطبيق",
+    features_title:"مميزات سَكِينَة",
+    features_desc:"كل ما تحتاجه في رفيقك اليومي للقرآن والصلاة، في مكان واحد.",
+    feat_reading_title:"قراءة القرآن",
+    feat_reading_desc:"قراءة القرآن الكريم بواجهة مريحة وواضحة.",
+    feat_recitation_title:"التلاوة",
+    feat_recitation_desc:"الاستماع إلى تلاوات القرآن الكريم.",
+    feat_reciters_title:"أصوات الشيوخ",
+    feat_reciters_desc:"اختيار التلاوة والاستماع إلى أصوات الشيوخ المتوفرة في التطبيق.",
+    feat_download_title:"تحميل السور",
+    feat_download_desc:"تحميل السور للاستماع إليها لاحقًا.",
+    feat_times_title:"مواقيت الصلاة",
+    feat_times_desc:"معرفة مواقيت الصلاة اليومية.",
+    feat_adhan_title:"الأذان",
+    feat_adhan_desc:"التنبيه بمواقيت الصلاة والأذان.",
+    feat_search_title:"البحث",
+    feat_search_desc:"البحث داخل القرآن بسهولة.",
+    feat_azkar_title:"الأذكار والأدعية",
+    feat_azkar_desc:"أذكار الصباح والمساء والنوم وبعد الصلاة من السنة النبوية.",
+
+    screenshots_eyebrow:"لمحة من الداخل",
+    screenshots_title:"استكشف سَكِينَة",
+    screenshots_desc:"صور حقيقية من التطبيق — اضغط على أي صورة لتكبيرها.",
+    shot_home:"الشاشة الرئيسية",
+    shot_prayer:"مواقيت الصلاة",
+    shot_reciters:"اختيار الشيخ",
+    shot_player:"مشغّل التلاوة",
+    shot_index:"فهرس السور",
+    shot_reading:"قراءة القرآن",
+    shot_search:"البحث في القرآن",
+    shot_azkar:"الأذكار والأدعية",
+    shot_reading_full:"قراءة القرآن (ملء الشاشة)",
+    shot_adhan:"إعدادات الأذان",
+
+    permissions_eyebrow:"الشفافية أولًا",
+    permissions_title:"أذونات التطبيق",
+    permissions_desc:"نحرص على أن يكون استخدام كل إذن مرتبطًا بميزة واضحة داخل سَكِينَة.",
+    perm_location_name:"الموقع الجغرافي",
+    perm_location_desc:"تُستخدم لتحديد مواقيت الصلاة بدقة حسب موقعك الجغرافي.",
+    perm_notif_name:"الإشعارات",
+    perm_notif_desc:"إرسال التنبيهات المتعلقة بمواقيت الصلاة والأذان.",
+    permission_why:"السبب:",
+    permission_used_in:"مرتبط بميزة:",
+
+    download_eyebrow:"جاهز؟",
+    download_title:"حمّل سَكِينَة",
+    download_desc:"احصل على أحدث إصدار من تطبيق سَكِينَة بصيغة APK.",
+    fact_version:"الإصدار",
+    fact_size:"حجم APK",
+    download_btn:"تحميل APK",
+    download_hint_ready:"سيبدأ التحميل مباشرة بصيغة APK.",
+    download_hint_pending:"سيتم تفعيل رابط التحميل قريبًا — يمكن للمطوّر إضافته من appConfig.apkUrl.",
+
+    install_eyebrow:"خطوة بخطوة",
+    install_title:"طريقة تثبيت سَكِينَة",
+    step1_title:"تحميل التطبيق", step1_desc:"اضغط على زر تحميل APK.",
+    step2_title:"فتح الملف", step2_desc:"بعد انتهاء التحميل، افتح ملف APK.",
+    step3_title:"السماح بالتثبيت", step3_desc:"إذا طلب أندرويد السماح بالتثبيت من هذا المصدر، اتّبع تعليمات النظام.",
+    step4_title:"تثبيت التطبيق", step4_desc:"اضغط على زر تثبيت.",
+    step5_title:"فتح سَكِينَة", step5_desc:"بعد اكتمال التثبيت، افتح التطبيق واستمتع.",
+    install_note:"قد يعرض نظام أندرويد تحذيرًا عند تثبيت تطبيق من خارج متجر Google Play — هذا أمر طبيعي عند تثبيت ملفات APK مباشرة، ويمكنك المتابعة بأمان بعد التأكد من مصدر الملف.",
+
+    developer_title:"عن المطوّر",
+    dev_name:"يوسف علاء حماده هاشم",
+    dev_initial:"ي",
+    developer_role:"مطوّر تطبيقات · Developer / Programmer",
+    developer_contact:"تواصل مع المطوّر",
+    developer_linkedin:"حساب LinkedIn",
+
+    privacy_title:"الخصوصية",
+    privacy_p1:"يطلب تطبيق سَكِينَة عددًا من الأذونات لتشغيل ميزاته المختلفة، كما هو موضّح بالتفصيل في قسم «أذونات التطبيق» أعلاه. الهدف من كل إذن مرتبط دائمًا بميزة واضحة داخل التطبيق.",
+    privacy_p2:"يمكنك في أي وقت مراجعة هذه الأذونات وتعديلها من إعدادات جهازك، مع العلم أن تعطيل إذن معيّن قد يؤثر على عمل الميزة المرتبطة به.",
+    privacy_p3:"لأي استفسار بخصوص الخصوصية، يمكنك التواصل مباشرة مع المطوّر عبر بيانات التواصل الموضحة في قسم «عن المطوّر».",
+
+    footer_tagline:"رفيقك اليومي للقرآن والصلاة والتلاوة.",
+    footer_screenshots:"الصور",
+    footer_install:"التثبيت",
+
+    page_title:"سَكِينَة | تطبيق القرآن الكريم ومواقيت الصلاة والأذان",
+    meta_description:"سَكِينَة تطبيق يجمع قراءة القرآن الكريم والتلاوة وأصوات الشيوخ وتحميل السور ومواقيت الصلاة والأذان في تجربة واحدة.",
+    new_badge:"جديد",
+    nw_mode_title:"وضع القراءة",
+    nw_mode_desc:"إمكانية قراءة القرآن الكريم صفحةً بصفحة، مثل المصحف، إلى جانب وضع القراءة النصية.",
+    nw_font_title:"التحكم في حجم الخط",
+    nw_font_desc:"إمكانية تخصيص حجم الخط بما يناسب راحة المستخدم أثناء القراءة.",
+    nw_vol_title:"تخصيص مستوى صوت الأذان",
+    nw_vol_desc:"إمكانية تحديد مستوى الصوت لكل أذان على حدة.",
+    nw_rem_title:"تذكيرات أذكار الصباح والمساء",
+    nw_rem_desc:"تذكير المستخدم بموعد أذكار الصباح والمساء.",
+    nw_count_title:"عداد الأذكار",
+    nw_count_desc:"إمكانية عدّ الأذكار ومتابعة عدد مرات التكرار بسهولة.",
+    nw_gov_title:"اختيار المحافظة دون إنترنت",
+    nw_gov_desc:"إمكانية تحديد المحافظة لحساب مواقيت الصلاة وتشغيل الأذان في موعده دون الحاجة إلى الاتصال بالإنترنت.",
+    nw_readers_title:"إضافة المزيد من القرّاء",
+    nw_readers_desc:"الاستماع إلى تلاوات متنوعة بأصوات مجموعة أكبر من القرّاء.",
+    nw_stop_title:"التحكم في إيقاف الأذان",
+    nw_stop_desc:"إمكانية إيقاف الأذان عند قلب الهاتف، مع إمكانية إيقافه حتى بعد إزالة الإشعار.",
+    old_title:"تحميل الإصدار القديم",
+    old_desc:"هل تفضّل الإصدار السابق؟ افتح صفحته لتحميله.",
+    old_btn:"تحميل الإصدار القديم",
+    shot2_home:"الشاشة الرئيسية",
+    shot2_index:"فهرس السور",
+    shot2_reading:"قراءة القرآن (وضع نصي)",
+    shot2_tools:"أدوات القراءة",
+    shot2_full:"قراءة بملء الشاشة",
+    shot2_search:"البحث في القرآن",
+    shot2_goto:"الانتقال إلى صفحة أو سورة",
+    shot2_azkar:"الأذكار وعدّاد التسبيح",
+    shot2_prayer:"مواقيت الصلاة",
+    shot2_reciters:"اختيار القارئ",
+    shot2_adhan:"الأذان لكل صلاة",
+    shot2_settings:"الإعدادات",
+    shot2_readmode:"وضع القراءة وحجم الخط",
+    shot2_location:"المحافظة دون إنترنت",
+    shot2_adhanset:"إعدادات الأذان",
+    shot2_azkarrem:"تذكيرات الأذكار",
+    not_specified:"غير محدد"
+  },
+  en: {
+    skip_link:"Skip to content",
+    nav_home:"Home", nav_features:"Features", nav_screenshots:"Screenshots",
+    nav_permissions:"Permissions", nav_install:"Installation", nav_download:"Download",
+    nav_cta:"Download APK",
+    hero_subtitle:"Your daily companion for Quran, prayer, and recitation",
+    hero_desc:"Enjoy a complete experience bringing together Quran reading, recitations, prayer times, the Adhan, and Surah downloads — all in one app.",
+    hero_btn_download:"Download APK",
+    hero_btn_features:"Explore Features",
+    alt_hero_screenshot:"Sakina app home screen",
+
+    features_eyebrow:"Inside the app",
+    features_title:"Features of Sakina",
+    features_desc:"Everything you need in your daily companion for Quran and prayer, in one place.",
+    feat_reading_title:"Quran Reading",
+    feat_reading_desc:"Read the Holy Quran in a clear, comfortable interface.",
+    feat_recitation_title:"Recitation",
+    feat_recitation_desc:"Listen to recitations of the Holy Quran.",
+    feat_reciters_title:"Reciter Voices",
+    feat_reciters_desc:"Choose a recitation and listen to the reciters available in the app.",
+    feat_download_title:"Download Surahs",
+    feat_download_desc:"Download Surahs to listen to them later.",
+    feat_times_title:"Prayer Times",
+    feat_times_desc:"Know the daily prayer times.",
+    feat_adhan_title:"Adhan",
+    feat_adhan_desc:"Get alerted for prayer times with the Adhan.",
+    feat_search_title:"Search",
+    feat_search_desc:"Search within the Quran with ease.",
+    feat_azkar_title:"Adhkar & Duas",
+    feat_azkar_desc:"Morning, evening, sleep, and after-prayer Adhkar from the Prophetic Sunnah.",
+
+    screenshots_eyebrow:"A look inside",
+    screenshots_title:"Explore Sakina",
+    screenshots_desc:"Real screenshots from the app — tap any image to enlarge it.",
+    shot_home:"Home Screen",
+    shot_prayer:"Prayer Times",
+    shot_reciters:"Choose a Reciter",
+    shot_player:"Recitation Player",
+    shot_index:"Surah Index",
+    shot_reading:"Quran Reading",
+    shot_search:"Quran Search",
+    shot_azkar:"Adhkar & Duas",
+    shot_reading_full:"Quran Reading (Full Screen)",
+    shot_adhan:"Adhan Settings",
+
+    permissions_eyebrow:"Transparency first",
+    permissions_title:"App Permissions",
+    permissions_desc:"We make sure every permission Sakina requests is tied to a clear feature.",
+    perm_location_name:"Location",
+    perm_location_desc:"Used to accurately determine prayer times based on your location.",
+    perm_notif_name:"Notifications",
+    perm_notif_desc:"Sends alerts related to prayer times and the Adhan.",
+    permission_why:"Why:",
+    permission_used_in:"Used for:",
+
+    download_eyebrow:"Ready?",
+    download_title:"Download Sakina",
+    download_desc:"Get the latest version of the Sakina app as an APK.",
+    fact_version:"Version",
+    fact_size:"APK Size",
+    download_btn:"Download APK",
+    download_hint_ready:"Your APK download will start right away.",
+    download_hint_pending:"The download link isn't set yet — the developer can add it in appConfig.apkUrl.",
+
+    install_eyebrow:"Step by step",
+    install_title:"How to Install Sakina",
+    step1_title:"Download the app", step1_desc:"Tap the Download APK button.",
+    step2_title:"Open the file", step2_desc:"Once the download finishes, open the APK file.",
+    step3_title:"Allow installation", step3_desc:"If Android asks to allow installs from this source, follow the on-screen instructions.",
+    step4_title:"Install the app", step4_desc:"Tap Install.",
+    step5_title:"Open Sakina", step5_desc:"Once installation is complete, open the app and enjoy.",
+    install_note:"Android may show a warning when installing an app from outside Google Play — this is normal when installing an APK directly, and you can safely continue after confirming the file's source.",
+
+    developer_title:"About the Developer",
+    dev_name:"Youssef Alaa Hamada Hashem",
+    dev_initial:"Y",
+    developer_role:"App Developer / Programmer",
+    developer_contact:"Contact the Developer",
+    developer_linkedin:"LinkedIn Profile",
+
+    privacy_title:"Privacy",
+    privacy_p1:"Sakina requests a number of permissions to power its different features, as detailed in the “App Permissions” section above. Each permission is always tied to a clear feature inside the app.",
+    privacy_p2:"You can review and change these permissions at any time from your device settings, keeping in mind that disabling a permission may affect the feature it's linked to.",
+    privacy_p3:"For any privacy questions, you can reach out to the developer directly using the contact details in the “About the Developer” section.",
+
+    footer_tagline:"Your daily companion for Quran, prayer, and recitation.",
+    footer_screenshots:"Screenshots",
+    footer_install:"Installation",
+
+    page_title:"Sakina | Quran, Prayer Times & Adhan App",
+    meta_description:"Sakina brings together Quran reading, recitation, reciter voices, Surah downloads, prayer times, and the Adhan in one experience.",
+    new_badge:"New",
+    nw_mode_title:"Reading Mode",
+    nw_mode_desc:"Read the Holy Quran page by page like a printed Mushaf, alongside the text reading mode.",
+    nw_font_title:"Font Size Control",
+    nw_font_desc:"Adjust the font size to whatever feels most comfortable while reading.",
+    nw_vol_title:"Per-Adhan Volume",
+    nw_vol_desc:"Set a separate volume level for each Adhan.",
+    nw_rem_title:"Morning & Evening Athkar Reminders",
+    nw_rem_desc:"Get reminded when it's time for the morning and evening athkar.",
+    nw_count_title:"Athkar Counter",
+    nw_count_desc:"Count your athkar and keep track of repetitions easily.",
+    nw_gov_title:"Choose Your Governorate Offline",
+    nw_gov_desc:"Pick your governorate to calculate prayer times and play the Adhan on time, with no internet connection needed.",
+    nw_readers_title:"More Reciters",
+    nw_readers_desc:"Listen to a variety of recitations by a larger selection of reciters.",
+    nw_stop_title:"Adhan Stop Control",
+    nw_stop_desc:"Stop the Adhan by flipping your phone over, and stop it even after the notification has been dismissed.",
+    old_title:"Download the Previous Version",
+    old_desc:"Prefer the previous release? Open its page to download it.",
+    old_btn:"Download Previous Version",
+    shot2_home:"Home",
+    shot2_index:"Surah index",
+    shot2_reading:"Quran reading (text mode)",
+    shot2_tools:"Reading tools",
+    shot2_full:"Full-screen reading",
+    shot2_search:"Search the Quran",
+    shot2_goto:"Go to a page or Surah",
+    shot2_azkar:"Athkar & tasbeeh counter",
+    shot2_prayer:"Prayer times",
+    shot2_reciters:"Choose a reciter",
+    shot2_adhan:"Adhan per prayer",
+    shot2_settings:"Settings",
+    shot2_readmode:"Reading mode & font size",
+    shot2_location:"Governorate, offline",
+    shot2_adhanset:"Adhan settings",
+    shot2_azkarrem:"Athkar reminders",
+    not_specified:"Not specified"
+  }
+};
+
+let currentLang = "ar";
+
+/* ============================================================
+   16) RENDER — بناء المحتوى من الـ Config
+   ============================================================ */
+function renderFeatures(){
+  const t = translations[currentLang];
+  const grid = document.getElementById("featuresGrid");
+  grid.innerHTML = features.map(f => `
+    <div class="feature-card reveal">
+      <h3 class="feature-title">${t[f.titleKey]}${f.isNew ? `<span class="new-badge">${t.new_badge}</span>` : ""}</h3>
+      <p class="feature-desc">${t[f.descKey]}</p>
+    </div>
+  `).join("");
+}
+
+function renderGallery(){
+  const t = translations[currentLang];
+  const grid = document.getElementById("galleryGrid");
+  grid.innerHTML = screenshots.map((s,i) => `
+    <div class="gallery-item reveal" onclick="openLightbox(${i})" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openLightbox(${i})">
+      <img src="${shotSrc(s.n)}" onerror="shotFallback(this,${s.n})" alt="${t[s.captionKey]}" loading="lazy" width="540" height="1170">
+      <span class="gallery-caption">${t[s.captionKey]}</span>
+    </div>
+  `).join("");
+}
+
+/* تمرير المعرض بواسطة الأسهم — بأسلوب متجر التطبيقات */
+function scrollGallery(dir){
+  const track = document.getElementById("galleryGrid");
+  const firstItem = track.querySelector(".gallery-item");
+  const itemWidth = firstItem ? firstItem.getBoundingClientRect().width : 210;
+  const gap = 16;
+  const amount = (itemWidth + gap) * 2;
+  const isRTL = document.documentElement.dir === "rtl";
+  track.scrollBy({ left: dir * amount * (isRTL ? -1 : 1), behavior: "smooth" });
+}
+
+function renderPermissions(){
+  const t = translations[currentLang];
+  const list = document.getElementById("permissionsList");
+  list.innerHTML = permissions.map(p => `
+    <div class="permission-card reveal">
+      <div class="permission-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${p.icon}</svg>
+      </div>
+      <div>
+        <div class="permission-name">${t[p.nameKey]}</div>
+        <span class="permission-code">${p.android}</span>
+        <p class="permission-desc"><span class="permission-why">${t.permission_why}</span> ${t[p.descKey]}</p>
+        <span class="permission-feature">${t.permission_used_in} ${t[p.featureKey]}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderSteps(){
+  const t = translations[currentLang];
+  const list = document.getElementById("stepsList");
+  list.innerHTML = installSteps.map((s,i) => `
+    <div class="step-card reveal">
+      <div class="step-num">${i+1}</div>
+      <h3 class="step-title">${t[s.titleKey]}</h3>
+      <p class="step-desc">${t[s.descKey]}</p>
+    </div>
+  `).join("");
+}
+
+function renderDownloadFacts(){
+  const t = translations[currentLang];
+  const notSpecified = t.not_specified;
+  document.getElementById("factVersion").textContent = appConfig.version || notSpecified;
+  document.getElementById("factSize").textContent = appConfig.apkSize || notSpecified;
+
+  // جاهز للتحميل طالما تم تحديد اسم/رابط للملف (وليس القيمة الافتراضية غير المضبوطة)
+  const isReady = !!appConfig.apkUrl && appConfig.apkUrl !== "PUT_APK_URL_HERE";
+  const btn = document.getElementById("downloadBtn");
+  const hint = document.getElementById("downloadHint");
+  if (isReady){
+    btn.href = appConfig.apkUrl;
+    btn.classList.remove("btn-disabled");
+    btn.removeAttribute("aria-disabled");
+    hint.textContent = t.download_hint_ready;
+  } else {
+    btn.href = "#download";
+    btn.classList.add("btn-disabled");
+    btn.setAttribute("aria-disabled","true");
+    hint.textContent = t.download_hint_pending;
+  }
+  document.getElementById("oldVersion").textContent = appConfig.oldVersion || notSpecified;
+  document.getElementById("oldSize").textContent = appConfig.oldApkSize || notSpecified;
+  document.getElementById("oldDownloadBtn").href = appConfig.oldSiteUrl;
+}
+
+/* ============================================================
+   17) i18n — تطبيق الترجمة على العناصر الثابتة
+   ============================================================ */
+function applyTranslations(){
+  const t = translations[currentLang];
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll("[data-i18n-text]").forEach(el=>{
+    const key = el.getAttribute("data-i18n-text");
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll("[data-i18n-alt]").forEach(el=>{
+    const key = el.getAttribute("data-i18n-alt");
+    if (t[key] !== undefined) el.setAttribute("alt", t[key]);
+  });
+  document.getElementById("page-title").textContent = t.page_title;
+  document.getElementById("meta-description").setAttribute("content", t.meta_description);
+  document.getElementById("og-title").setAttribute("content", t.page_title);
+  document.getElementById("og-description").setAttribute("content", t.meta_description);
+  document.getElementById("twitter-title").setAttribute("content", t.page_title);
+  document.getElementById("twitter-description").setAttribute("content", t.meta_description);
+}
+
+function setLang(lang){
+  currentLang = lang;
+  const html = document.documentElement;
+  html.lang = lang;
+  html.dir = lang === "ar" ? "rtl" : "ltr";
+  document.getElementById("langAr").classList.toggle("active", lang === "ar");
+  document.getElementById("langEn").classList.toggle("active", lang === "en");
+  localStorage.setItem("sakina-lang", lang);
+
+  applyTranslations();
+  document.getElementById("devName").textContent = translations[lang].dev_name;
+  document.getElementById("devAvatar").textContent = translations[lang].dev_initial;
+  document.getElementById("footerDevName").textContent = translations[lang].dev_name;
+  renderFeatures();
+  renderGallery();
+  renderPermissions();
+  renderSteps();
+  renderDownloadFacts();
+  observeReveals();
+}
+
+/* ============================================================
+   18) THEME (Dark / Light)
+   ============================================================ */
+function applyTheme(theme){
+  document.documentElement.setAttribute("data-theme", theme);
+  document.getElementById("themeIconMoon").style.display = theme === "dark" ? "none" : "block";
+  document.getElementById("themeIconSun").style.display = theme === "dark" ? "block" : "none";
+  document.querySelector('meta[name="theme-color"]').setAttribute("content", theme === "dark" ? "#0e201d" : "#1f4a48");
+  refreshShots();
+}
+function refreshShots(){
+  const hero = document.getElementById("heroShot");
+  if (hero){ hero.onerror = ()=>shotFallback(hero,1); hero.src = shotSrc(1); }
+  renderGallery();
+  observeReveals();
+  if (document.getElementById("lightbox").classList.contains("open")) updateLightbox();
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute("data-theme");
+  const next = current === "dark" ? "light" : "dark";
+  applyTheme(next);
+  localStorage.setItem("sakina-theme-v2", next);
+}
+
+/* ============================================================
+   19) MOBILE MENU
+   ============================================================ */
+function toggleMenu(){
+  const nav = document.getElementById("navLinks");
+  const btn = document.getElementById("menuToggle");
+  const isOpen = nav.classList.toggle("open");
+  btn.setAttribute("aria-expanded", String(isOpen));
+}
+document.getElementById("navLinks").addEventListener("click", (e)=>{
+  if (e.target.tagName === "A") {
+    document.getElementById("navLinks").classList.remove("open");
+    document.getElementById("menuToggle").setAttribute("aria-expanded","false");
+  }
+});
+
+/* ============================================================
+   20) LIGHTBOX
+   ============================================================ */
+let lightboxIndex = 0;
+function openLightbox(index){
+  lightboxIndex = index;
+  updateLightbox();
+  document.getElementById("lightbox").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeLightbox(){
+  document.getElementById("lightbox").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function navLightbox(dir){
+  lightboxIndex = (lightboxIndex + dir + screenshots.length) % screenshots.length;
+  updateLightbox();
+}
+function updateLightbox(){
+  const t = translations[currentLang];
+  const item = screenshots[lightboxIndex];
+  const lbImg = document.getElementById("lightboxImg");
+  lbImg.onerror = ()=>shotFallback(lbImg,item.n);
+  lbImg.src = shotSrc(item.n);
+  document.getElementById("lightboxImg").alt = t[item.captionKey];
+  document.getElementById("lightboxCaption").textContent = t[item.captionKey];
+}
+document.addEventListener("keydown", (e)=>{
+  if (!document.getElementById("lightbox").classList.contains("open")) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowLeft") navLightbox(currentLang === "ar" ? 1 : -1);
+  if (e.key === "ArrowRight") navLightbox(currentLang === "ar" ? -1 : 1);
+});
+document.getElementById("lightbox").addEventListener("click",(e)=>{
+  if (e.target.id === "lightbox") closeLightbox();
+});
+
+/* ============================================================
+   21) SCROLL REVEAL ANIMATIONS
+   ============================================================ */
+let revealObserver;
+function observeReveals(){
+  if (revealObserver) revealObserver.disconnect();
+  const els = document.querySelectorAll(".reveal");
+  revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if (entry.isIntersecting){
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.12 });
+  els.forEach(el => revealObserver.observe(el));
+}
+
+/* ============================================================
+   22) STICKY NAVBAR SHADOW ON SCROLL
+   ============================================================ */
+const navEl = document.querySelector(".navbar");
+window.addEventListener("scroll", ()=>{
+  if (window.scrollY > 12){ navEl.style.boxShadow = "0 6px 24px rgba(20,40,38,.10)"; }
+  else { navEl.style.boxShadow = "none"; }
+}, { passive:true });
+
+/* ============================================================
+   23) INIT
+   ============================================================ */
+(function init(){
+  const mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  const systemTheme = () => (mq && mq.matches ? "dark" : "light");
+  localStorage.removeItem("sakina-theme");
+  applyTheme(localStorage.getItem("sakina-theme-v2") || systemTheme());
+  // أي تغيير في ثيم الجهاز/المتصفح يطبَّق فورًا
+  if (mq){
+    const onChange = () => { localStorage.removeItem("sakina-theme-v2"); applyTheme(systemTheme()); };
+    mq.addEventListener ? mq.addEventListener("change", onChange) : mq.addListener(onChange);
+  }
+
+  const savedLang = localStorage.getItem("sakina-lang") || "ar";
+  setLang(savedLang);
+})();
+</script>
+</body>
+</html>
